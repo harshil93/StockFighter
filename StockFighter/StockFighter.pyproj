@@ -5,13 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4b5c015d-af0b-4424-8c0c-f094612f5c3b</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>StockFighter.py</StartupFile>
+    <StartupFile>scratch.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>StockFighter</Name>
     <RootNamespace>StockFighter</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="scratch.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StockFighter.py" />
   </ItemGroup>
   <PropertyGroup>
