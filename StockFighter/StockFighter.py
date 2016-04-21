@@ -24,12 +24,28 @@ class StockFighter(object):
 
     def getOrderbook(self, venue, stock):
         apiUrl = "https://api.stockfighter.io/ob/api/venues/{0}/stocks/{1}".format(venue, stock)
-        request = urllib2.Request(apiUrl, None, self.requestHeaders)
-        response = urllib2.urlopen(request)
-        return response.read()
+        return self.doGetRequest(apiUrl)
+
+    def getQuote(self, venue, stock):
+        apiUrl = "https://api.stockfighter.io/ob/api/venues/{0}/stocks/{1}/quote".format(venue, stock)
+        return self.doGetRequest(apiUrl)
+
+    def getStatusOfOrder(self, orderId, venue, stock):
+        apiUrl = "https://api.stockfighter.io/ob/api/venues/{0}/stocks/{1}/orders/{2}".format(venue, stock, orderId)
+        return self.doGetRequest(apiUrl)
+
+    def getStatusOfAllOrdersOfAStock(self, venue, account, stock):
+        apiUrl = "https://api.stockfighter.io/ob/api/venues/{0}/accounts/{1}/stocks/{2}/orders".format(venue, account, stock)
+        return self.doGetRequest(apiUrl)
 
     def placeOrder(self, order):
         apiUrl = "https://api.stockfighter.io/ob/api/venues/{0}/stocks/{1}/orders".format(order.venue, order.stock)
-        request = urllib2.Request(apiUrl, json.dumps(order.__dict__), self.requestHeaders)
-        response = urllib2.urlopen(request)
-        return response.read()
+        return self.doPostRequest(apiUrl, order.__dict__)
+
+    def doGetRequest(self, apiUrl):
+        request = urllib2.Request(apiUrl, None, self.requestHeaders)
+        return json.loads(urllib2.urlopen(request).read())
+    
+    def doPostRequest(self, apiUrl, data):
+        request = urllib2.Request(apiUrl, json.dumps(data), self.requestHeaders)
+        return json.loads(urllib2.urlopen(request).read())
